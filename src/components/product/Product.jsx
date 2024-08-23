@@ -145,6 +145,14 @@ const Product = () => {
           </div>
         </div>
       </section>
+      <div className="product__info">
+        <div className="btns">
+          <button>Description</button>
+          <button>Additional info</button>
+          <button>Vendor</button>
+          <button>Reviews (3)</button>
+        </div>
+      </div>
       <div className="wrapper my-7">
         <Hero state={state} />
       </div>

@@ -36,7 +36,11 @@ const FeaturedCategories = () => {
             className={`featured-categories--item text-center rounded-xl py-4 px-5 shrink-0`}
             style={{ backgroundColor: item.bg }}
           >
-            <img src={imgs[idx]} className="h-20 w-20" alt="img of food" />
+            <img
+              src={imgs[idx]}
+              className="h-20 w-20 mx-auto"
+              alt="img of food"
+            />
             <h4 className="font-Quicksand text-[1rem] font-semibold text-[#253D4E]">
               {item.title}
             </h4>

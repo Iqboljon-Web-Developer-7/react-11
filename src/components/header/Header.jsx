@@ -10,7 +10,7 @@ import { MdOutlineDarkMode } from "react-icons/md";
 import { IoCartOutline } from "react-icons/io5";
 import { CiSearch } from "react-icons/ci";
 import { FaRegHeart } from "react-icons/fa";
-import { IoLocationOutline } from "react-icons/io5";
+import { RiUser3Line } from "react-icons/ri";
 
 import logo from "@/assets/logo.svg";
 
@@ -105,17 +105,18 @@ const Header = () => {
             Your Location
           </option>
         </select>
-        <div className="header__contact flex items-center justify-center gap-3">
-          <Link
-            to={"/wishList"}
-            className="flex items-center justify-center gap-1"
-          >
+        <div className="header__contact flex items-center justify-center gap-2">
+          <Link to={"/wishList"} className="flex items-center justify-center">
             <FaRegHeart className="text-2xl" />
-            <sub>Wishlist</sub>
+            <sub className="text-slate-400">Wishlist</sub>
           </Link>
-          <Link to={"/cart"} className="flex items-center justify-center gap-1">
+          <Link to={"/cart"} className="flex items-center justify-center">
             <IoCartOutline className="text-2xl" />
-            <sub>Cart</sub>
+            <sub className="text-slate-400">Cart</sub>
+          </Link>
+          <Link to={"/account"} className="flex items-center justify-center">
+            <RiUser3Line className="text-2xl" />
+            <sub className="text-slate-400">Account</sub>
           </Link>
           <div className="modes flex gap-3 text-3xl cursor-pointer">
             <IoIosSunny
