@@ -14,7 +14,7 @@ import { RiUser3Line } from "react-icons/ri";
 
 import logo from "@/assets/logo.svg";
 
-const Header = () => {
+const Header = ({ wishlist }) => {
   const [theme, setTheme] = useState("light");
   const [isHeaderFixed, setIsHeaderFixed] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
@@ -106,9 +106,17 @@ const Header = () => {
           </option>
         </select>
         <div className="header__contact flex items-center justify-center gap-2">
-          <Link to={"/wishList"} className="flex items-center justify-center">
-            <FaRegHeart className="text-2xl" />
+          <Link
+            to={"/wishList"}
+            className="flex items-center justify-center relative"
+          >
+            <FaRegHeart className="text-2xl"></FaRegHeart>
             <sub className="text-slate-400">Wishlist</sub>
+            {wishlist.length > 0 && (
+              <span className="absolute min-w-5 text-center bg-red-500 text-white leading-3 p-1 rounded-full inset-[-.6rem_auto_auto_.65rem] text-[.66rem]">
+                {wishlist.length}
+              </span>
+            )}
           </Link>
           <Link to={"/cart"} className="flex items-center justify-center">
             <IoCartOutline className="text-2xl" />

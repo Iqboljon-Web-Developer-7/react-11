@@ -1,22 +1,13 @@
-import { useStateValue } from "@/context";
 import React, { memo, useEffect, useState } from "react";
 
 import { TbHeartPlus } from "react-icons/tb";
+import { FaHeart } from "react-icons/fa";
 import { BsCartPlus } from "react-icons/bs";
-import { useFetch } from "@/hooks/useFetch";
 import Rating from "../rating/Rating";
 import { Link } from "react-router-dom";
-const Products = () => {
-  const [path, setPath] = useState("");
-  const [category, setCategory] = useState("");
 
-  const { data } = useFetch(`/products${path}`, { limit: 10 }, [
-    category,
-    path,
-  ]);
-  const { data: categories } = useFetch("/products/category-list");
-
-  let items = data?.products.map((product, inx) => (
+const Products = ({ data, dispatch, wishlist }) => {
+  let items = data?.map((product, inx) => (
     <div
       className="border group rounded-xl dark:border-gray-600 dark:hover:border-slate-300 hover:border-black hover:shadow-md duration-300 cursor-pointer p-3"
       key={inx}
@@ -49,10 +40,14 @@ const Products = () => {
         </strong>
         <div className="flex gap-3">
           <button
-            onClick={() => dispatch({ type: "ADD_WISH_ITEM", product })}
+            onClick={() => dispatch({ type: "TOGGLE_WISHLIST_ITEM", product })}
             className="p-2 rounded-full hidden group-hover:block hover:bg-red-200 text-[1rem] bg-red-100 duration-200"
           >
-            <TbHeartPlus />
+            {wishlist.some((x) => x.id == product.id) ? (
+              <FaHeart className="text-red-500" />
+            ) : (
+              <TbHeartPlus />
+            )}
           </button>
 
           <button
@@ -67,26 +62,7 @@ const Products = () => {
     </div>
   ));
   return (
-    <div className="mx-auto products mt-12">
-      <div className="products__info my-4 flex flex-col md:flex-row justify-between items-center">
-        <h3 className="text-2xl font-bold mb-3 font-Quicksand text-[#253D4E]">
-          Popular Products
-        </h3>
-        <div className="flex gap-5">
-          <p className="text-sm cursor-pointer" onClick={() => setPath(``)}>
-            All
-          </p>
-          {categories?.slice(0, 5).map((item, idx) => (
-            <p
-              key={idx}
-              onClick={() => setPath(`/category/${item}`)}
-              className="text-sm cursor-pointer"
-            >
-              {item}
-            </p>
-          ))}
-        </div>
-      </div>
+    <div className="mx-auto products mt-4">
       <div className="mb-8 grid gap-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
         {items ||
           new Array(10).fill().map((_, idx) => (

@@ -104,8 +104,9 @@ export const initialState = {
 };
 
 export const reducer = (state, action) => {
+  let res = "";
   switch (action.type) {
-    case "ADD_WISH_ITEM":
+    case "TOGGLE_WISHLIST_ITEM":
       if (state.wishlist.findIndex((x) => x.id == action.product.id) < 0) {
         return { ...state, wishlist: [...state.wishlist, action.product] };
       }

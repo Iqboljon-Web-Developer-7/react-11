@@ -1,5 +1,5 @@
 import { useFetch } from "@/hooks/useFetch";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 
 import { FaAngleUp } from "react-icons/fa6";
@@ -21,16 +21,20 @@ const Product = () => {
 
   const [state, dispatch] = useStateValue();
 
+  useEffect(() => {
+    window.scroll(0, 0);
+  }, []);
+
   return (
     <>
-      <section className="product wrapper my-20">
+      <section className="product wrapper mt-14 mb-20">
         <div className="product__info flex items-center text-sm my-4 gap-4">
           <Link to={"/"} className="flex items-center justify-center gap-2">
             <img src={img} className="max-w-4" alt="img of home" />
             <span className="text-[#3BB77E]">Home</span>
           </Link>{" "}
           <span className="text-slate-300">/</span>
-          <Link className="text-[#3BB77E]" to={"products"}>
+          <Link className="text-[#3BB77E]" to={"/"}>
             Products
           </Link>
           <span className="text-slate-300">/</span>
@@ -129,10 +133,9 @@ const Product = () => {
               </p>
               <p className="text-[#3BB77E] flex gap-1">
                 <span className="text-[#7E7E7E]">Tags:</span>{" "}
-                {product?.tags.map((item) => (
-                  <span>{item}</span>
+                {product?.tags.map((item, idx) => (
+                  <span key={idx}>{item}</span>
                 ))}
-                {console.log(product?.tags)}
               </p>
               <p className="text-[#3BB77E]">
                 <span className="text-[#7E7E7E]">Life:</span> 1 month
