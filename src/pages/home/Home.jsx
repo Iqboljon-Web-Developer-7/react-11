@@ -28,6 +28,7 @@ const Home = () => {
         dispatch={dispatch}
         data={data?.products}
         wishlist={state.wishlist}
+        cart={state.cart}
         path={path}
         setPath={setPath}
       />

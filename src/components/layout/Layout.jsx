@@ -8,7 +8,7 @@ const Layout = () => {
   const [state, dispatch] = useStateValue();
   return (
     <>
-      <Header wishlist={state.wishlist} />
+      <Header wishlist={state.wishlist} cart={state.cart} />
       <main>
         <Outlet />
       </main>

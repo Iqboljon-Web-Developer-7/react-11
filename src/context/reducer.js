@@ -116,7 +116,14 @@ export const reducer = (state, action) => {
           (item) => item.id !== action.product.id
         ),
       };
-
+    case "TOGGLE_CART_ITEM":
+      if (state.cart.findIndex((x) => x.id == action.product.id) < 0) {
+        return { ...state, cart: [...state.cart, action.product] };
+      }
+      return {
+        ...state,
+        cart: state.cart.filter((item) => item.id !== action.product.id),
+      };
     default:
       break;
   }

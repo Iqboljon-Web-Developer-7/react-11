@@ -3,9 +3,7 @@ import Products from "@/components/products/Products";
 import { useStateValue } from "@/context";
 import React, { useEffect } from "react";
 
-const Wishlist = () => {
-  const [state, dispatch] = useStateValue();
-
+const Wishlist = ({ state, dispatch }) => {
   useEffect(() => {
     window.scroll(0, 0);
   }, []);
@@ -24,7 +22,12 @@ const Wishlist = () => {
             <h2 className="text-center text-3xl text-slate-700">
               Your Wishlist
             </h2>
-            <Products data={state?.wishlist} />
+            <Products
+              dispatch={dispatch}
+              data={state.wishlist}
+              wishlist={state.wishlist}
+              cart={state.cart}
+            />
           </>
         )}
       </div>

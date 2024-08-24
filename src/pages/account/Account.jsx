@@ -1,10 +1,47 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 import img from "@/assets/product/home.svg";
 import logo from "@/assets/logo.svg";
+import { useFetch } from "@/hooks/useFetch";
+import { axiosFun } from "@/API";
 
-const Account = () => {
+const Account = ({ setUserData }) => {
+  const [username, setUsername] = useState("emilys");
+  const [userPassword, setUserPasswords] = useState("emilyspass");
+
+  const data = {
+    username,
+    userPassword,
+  };
+
+  const navigate = useNavigate();
+
+  const navigateHandler = (path) => {
+    navigate(path);
+  };
+
+  const saveToken = () => {
+    fetch("https://dummyjson.com/auth/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        username: data.username,
+        password: data.userPassword,
+        expiresInMins: 30, // optional, defaults to 60
+      }),
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        localStorage.setItem("userTokent", JSON.stringify(res.token));
+      });
+  };
+
+  console.log(username);
+  console.log(userPassword);
+
+  console.log(data);
+
   return (
     <section className="wrapper mt-16 border-b-2 border-slate-100">
       <div className="product__info flex items-center text-sm my-4 gap-4">
@@ -13,22 +50,33 @@ const Account = () => {
           <span className="text-[#3BB77E]">Home</span>
         </Link>{" "}
         <span className="text-slate-300">/</span>
-        <p className="text-slate-300">Products</p>
+        <p className="text-slate-300">Form</p>
       </div>
       <div className="min-h-[77vh] flex items-center justify-center">
-        <form className="p-5 border min-w-[25rem]">
+        <form
+          className="p-5 border min-w-[25rem]"
+          onSubmit={(e) => {
+            e.preventDefault();
+            setUserData(data);
+            navigateHandler("/admin");
+            saveToken();
+          }}
+        >
           <img
             src={logo}
             className="max-w-[11.25rem] mx-auto"
             alt="img of website logo"
           />
           <div className="form--item grid mt-6">
-            <label htmlFor="email" className="text-sm font-light">
-              Email address*
+            <label htmlFor="username" className="text-sm font-light">
+              Username*
             </label>
             <input
-              type="email"
-              id="email"
+              required
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              type="text"
+              id="username"
               placeholder="Enter Your Email"
               className="text-[1rem] p-2 mt-2 border rounded-md"
             />
@@ -38,7 +86,10 @@ const Account = () => {
               Password**
             </label>
             <input
-              type="email"
+              required
+              value={userPassword}
+              onChange={(e) => setUserPasswords(e.target.value)}
+              type="password"
               id="password"
               placeholder="Enter Your Password"
               className="text-[1rem] p-2 mt-2 border rounded-md"

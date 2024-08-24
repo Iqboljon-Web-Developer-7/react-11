@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useState } from "react";
+import React, { memo, useState } from "react";
 
 import { TbHeartPlus } from "react-icons/tb";
 import { FaHeart } from "react-icons/fa";
@@ -6,7 +6,9 @@ import { BsCartPlus } from "react-icons/bs";
 import Rating from "../rating/Rating";
 import { Link } from "react-router-dom";
 
-const Products = ({ data, dispatch, wishlist }) => {
+const Products = ({ data, dispatch, wishlist, cart }) => {
+  const [addBtnClr, setAddBtnClr] = useState("hover:bg-[#bbf2d7] bg-[#DEF9EC]");
+
   let items = data?.map((product, inx) => (
     <div
       className="border group rounded-xl dark:border-gray-600 dark:hover:border-slate-300 hover:border-black hover:shadow-md duration-300 cursor-pointer p-3"
@@ -16,7 +18,7 @@ const Products = ({ data, dispatch, wishlist }) => {
         <Link to={`/product/${product?.id}`}>
           <img
             className="w-full h-full object-contain"
-            src={product?.images[0]}
+            src={product.images[0]}
             alt="Photo"
           />
         </Link>
@@ -51,11 +53,16 @@ const Products = ({ data, dispatch, wishlist }) => {
           </button>
 
           <button
-            onClick={() => dispatch({ type: "ADD_CART_ITEM", product })}
-            className="p-2  text-sm flex items-center justify-center rounded-lg text-[#3BB77E] hover:bg-[#bbf2d7] text-[1rem] bg-[#DEF9EC] duration-200"
+            onClick={() => dispatch({ type: "TOGGLE_CART_ITEM", product })}
+            className={`p-2 ${addBtnClr} text-sm flex items-center justify-center rounded-lg text-[#3BB77E] text-[1rem]  duration-200`}
           >
             <BsCartPlus />
-            &nbsp;<span>Add</span>
+            &nbsp;
+            {cart.some((x) => x.id == product.id) ? (
+              <span className="text-red-500">Remove</span>
+            ) : (
+              <span>Add</span>
+            )}
           </button>
         </div>
       </div>

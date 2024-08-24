@@ -8,13 +8,13 @@ import { RiMenu5Line } from "react-icons/ri";
 import { IoIosSunny } from "react-icons/io";
 import { MdOutlineDarkMode } from "react-icons/md";
 import { IoCartOutline } from "react-icons/io5";
-import { CiSearch } from "react-icons/ci";
 import { FaRegHeart } from "react-icons/fa";
 import { RiUser3Line } from "react-icons/ri";
 
 import logo from "@/assets/logo.svg";
+import Search from "../search/Search";
 
-const Header = ({ wishlist }) => {
+const Header = ({ wishlist, cart }) => {
   const [theme, setTheme] = useState("light");
   const [isHeaderFixed, setIsHeaderFixed] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
@@ -63,43 +63,7 @@ const Header = ({ wishlist }) => {
             <img src={logo} className="duration-200" alt="" />
           </Link>
         </div>
-        <div className="header__form hidden lg:flex border border-lime-500 p-2 grow rounded-sm">
-          <select name="categories" className="bg-transparent text-[.875rem]">
-            <option value="">ALL Categories</option>
-            <option value="beauty">Beauty</option>
-            <option value="fragrances">Fragrances</option>
-            <option value="furniture">Furniture</option>
-            <option value="groceries">Groceries</option>
-            <option value="home-decoration">Home Decoration</option>
-            <option value="kitchen-accessories">Kitchen Accessories</option>
-            <option value="laptops">Laptops</option>
-            <option value="mens-shirts">Men's Shirts</option>
-            <option value="mens-shoes">Men's Shoes</option>
-            <option value="mens-watches">Men's Watches</option>
-            <option value="mobile-accessories">Mobile Accessories</option>
-            <option value="motorcycle">Motorcycle</option>
-            <option value="skin-care">Skin Care</option>
-            <option value="smartphones">Smartphones</option>
-            <option value="sports-accessories">Sports Accessories</option>
-            <option value="sunglasses">Sunglasses</option>
-            <option value="tablets">Tablets</option>
-            <option value="tops">Tops</option>
-            <option value="vehicle">Vehicle</option>
-            <option value="womens-bags">Women's Bags</option>
-            <option value="womens-dresses">Women's Dresses</option>
-            <option value="womens-jewellery">Women's Jewellery</option>
-            <option value="womens-shoes">Women's Shoes</option>
-            <option value="womens-watches">Women's Watches</option>
-          </select>
-          <form className="flex items-center justify-between w-full">
-            <input
-              type="text"
-              placeholder="Search for items..."
-              className="bg-transparent pl-4 ml-4 border-l-2 w-4/5 outline-none border-none text-[.875rem]"
-            />
-            <CiSearch />
-          </form>
-        </div>
+        <Search />
         <select className="bg-transparent hidden lg:block text-[.875rem] text-[#3BB77E] outline-none">
           <option value="" className="">
             Your Location
@@ -113,14 +77,22 @@ const Header = ({ wishlist }) => {
             <FaRegHeart className="text-2xl"></FaRegHeart>
             <sub className="text-slate-400">Wishlist</sub>
             {wishlist.length > 0 && (
-              <span className="absolute min-w-5 text-center bg-red-500 text-white leading-3 p-1 rounded-full inset-[-.6rem_auto_auto_.65rem] text-[.66rem]">
+              <span className="absolute min-w-4 text-center bg-red-500 text-white leading-3 p-[.12rem] rounded-full inset-[-.5rem_auto_auto_.66rem] text-[.66rem]">
                 {wishlist.length}
               </span>
             )}
           </Link>
-          <Link to={"/cart"} className="flex items-center justify-center">
+          <Link
+            to={"/cart"}
+            className="flex items-center justify-center relative"
+          >
             <IoCartOutline className="text-2xl" />
             <sub className="text-slate-400">Cart</sub>
+            {cart.length > 0 && (
+              <span className="absolute min-w-4 text-center bg-green-500 text-white leading-3 p-[.12rem] rounded-full inset-[-.5rem_auto_auto_.7rem] text-[.66rem]">
+                {cart.length}
+              </span>
+            )}
           </Link>
           <Link to={"/account"} className="flex items-center justify-center">
             <RiUser3Line className="text-2xl" />
