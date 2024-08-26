@@ -1,9 +1,8 @@
 import React from "react";
 
 import { FaRegPaperPlane } from "react-icons/fa6";
-// import bgImage from "@/assets/carousel/carousel-img1.png";
 
-const CarouselItem = ({ title, subTitle, bgImage }) => {
+const CarouselItem = ({ title, subTitle, bgImage, idx }) => {
   return (
     <div
       className="hero__carousel--item shrink-0 w-full bg-cover bg-- rounded-xl md:rounded-3xl p-6 sm:p-9 md:p-16 lg:p-24"
@@ -11,10 +10,18 @@ const CarouselItem = ({ title, subTitle, bgImage }) => {
     >
       <div className="hero__carousel--item-info max-w-[32rem]">
         <div className="grid gap-1 sm:gap-3 md:gap-4 lg:gap-5">
-          <h2 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-Quicksand font-semibold text-[#253D4E]">
+          <h2
+            className={`text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-Quicksand font-semibold ${
+              idx != 1 ? "text-[#253D4E]" : "text-slate-200"
+            }`}
+          >
             {title}
           </h2>
-          <p className="text-sm sm:text-[1rem] md:text-xl lg:text-2xl text-[#7E7E7E]">
+          <p
+            className={`text-sm sm:text-[1rem] md:text-xl lg:text-2xl ${
+              idx != 1 ? "text-[#7E7E7E]" : "text-slate-300"
+            }`}
+          >
             {subTitle}
           </p>
         </div>

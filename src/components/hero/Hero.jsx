@@ -2,7 +2,10 @@ import React from "react";
 
 import CarouselItem from "../carouselitem/CarouselItem";
 import bgImage from "@/assets/carousel/carousel-img1.png";
-import { useStateValue } from "@/context";
+import bgImage1 from "@/assets/carousel/carousel-img2.jpg";
+import bgImage2 from "@/assets/carousel/carousel-img3.jpg";
+
+const imgs = [bgImage, bgImage1, bgImage2];
 
 const Hero = ({ state }) => {
   return (
@@ -12,7 +15,13 @@ const Hero = ({ state }) => {
           key={idx}
           title={item.title}
           subTitle={item.subTitle}
-          bgImage={bgImage}
+          bgImage={imgs[idx]}
+          idx={idx}
+          // classStyle={
+          //   idx != 1
+          //     ? { heading: "text-[#253D4E]", paragraph: "text-[#7E7E7E]" }
+          //     : { heading: "text-slate-200", paragraph: "text-slate-300" }
+          // }
         />
       ))}
     </section>
