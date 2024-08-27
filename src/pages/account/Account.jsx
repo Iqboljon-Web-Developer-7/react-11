@@ -105,9 +105,8 @@ const Account = ({ dispatch }) => {
                 message: "Please input your password!",
               },
             ]}
-            defaultValue={"emilyspass"}
           >
-            <Input.Password />
+            <Input.Password defaultValue={"emilyspass"} />
           </Form.Item>
 
           <Form.Item>
