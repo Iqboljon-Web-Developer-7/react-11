@@ -7,14 +7,17 @@ const Categories = ({ categories, setPath }) => {
         Popular Products
       </h3>
       <div className="flex gap-2 sm:gap-5 flex-wrap justify-center">
-        <p className="text-sm cursor-pointer" onClick={() => setPath(``)}>
+        <p
+          className="text-sm cursor-pointer dark:text-slate-200"
+          onClick={() => setPath(``)}
+        >
           All
         </p>
         {categories?.slice(0, 5).map((item, idx) => (
           <p
             key={idx}
             onClick={() => setPath(`/category/${item}`)}
-            className="text-sm cursor-pointer capitalize text-slate-200"
+            className="text-sm cursor-pointer capitalize dark:text-slate-200"
           >
             {item}
           </p>
