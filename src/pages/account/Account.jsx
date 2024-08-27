@@ -1,15 +1,24 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Button, Checkbox, Form, Input } from "antd";
+import { Button, Checkbox, Form, Input, message } from "antd";
+// import { Button, message } from "antd";
 
 import img from "@/assets/product/home.svg";
 import logo from "@/assets/logo.svg";
 
 const Account = ({ setUserData, dispatch }) => {
+  const [messageApi, contextHolder] = message.useMessage();
   const navigate = useNavigate();
 
   const navigateHandler = (path) => {
     navigate(path);
+  };
+
+  const error = (text) => {
+    messageApi.error(text);
+  };
+  const success = (text) => {
+    messageApi.success(text);
   };
 
   const saveToken = (data) => {
@@ -24,9 +33,16 @@ const Account = ({ setUserData, dispatch }) => {
     })
       .then((res) => res.json())
       .then((res) => {
-        localStorage.setItem("userTokent", JSON.stringify(res.token));
-        dispatch({ type: "ADD_TOKEN", token: res.token });
-        navigateHandler("/");
+        if (res.message) {
+          error("Something went wrong :(");
+          return;
+        }
+        success("Successfully logged in :)");
+        setTimeout(() => {
+          localStorage.setItem("userTokent", JSON.stringify(res.token));
+          dispatch({ type: "ADD_TOKEN", token: res.token });
+          navigateHandler("/");
+        }, 500);
       });
   };
 
@@ -102,6 +118,7 @@ const Account = ({ setUserData, dispatch }) => {
           </Form.Item>
         </Form>
       </div>
+      {contextHolder}
     </section>
   );
 };
