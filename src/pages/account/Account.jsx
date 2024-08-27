@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button, Checkbox, Form, Input, message } from "antd";
-// import { Button, message } from "antd";
 
 import img from "@/assets/product/home.svg";
 import logo from "@/assets/logo.svg";
 
-const Account = ({ setUserData, dispatch }) => {
+const Account = ({ dispatch }) => {
   const [messageApi, contextHolder] = message.useMessage();
   const navigate = useNavigate();
 
@@ -21,7 +20,7 @@ const Account = ({ setUserData, dispatch }) => {
     messageApi.success(text);
   };
 
-  const saveToken = (data) => {
+  const saveToken = (data, values) => {
     fetch("https://dummyjson.com/auth/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -37,7 +36,11 @@ const Account = ({ setUserData, dispatch }) => {
           error("Something went wrong :(");
           return;
         }
+
         success("Successfully logged in :)");
+        console.log(res);
+
+        dispatch({ type: "SAVE_USER", payload: { ...values, img: res.image } });
         setTimeout(() => {
           localStorage.setItem("userTokent", JSON.stringify(res.token));
           dispatch({ type: "ADD_TOKEN", token: res.token });
@@ -47,8 +50,7 @@ const Account = ({ setUserData, dispatch }) => {
   };
 
   const onFinish = (values) => {
-    setUserData(values);
-    saveToken(values);
+    saveToken(values, values);
   };
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
@@ -91,7 +93,7 @@ const Account = ({ setUserData, dispatch }) => {
               },
             ]}
           >
-            <Input />
+            <Input defaultValue={"emilys"} />
           </Form.Item>
 
           <Form.Item
@@ -103,6 +105,7 @@ const Account = ({ setUserData, dispatch }) => {
                 message: "Please input your password!",
               },
             ]}
+            defaultValue={"emilyspass"}
           >
             <Input.Password />
           </Form.Item>

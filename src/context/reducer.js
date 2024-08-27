@@ -2,6 +2,7 @@ export const initialState = JSON.parse(localStorage.getItem("mainData")) || {
   wishlist: [],
   cart: [],
   token: localStorage.getItem("userTokent") || null,
+  userData: "",
   carousel: [
     {
       title: `Fresh Vegetables Big discount`,
@@ -135,6 +136,10 @@ export const reducer = (state, action) => {
       return res;
     case "ADD_TOKEN":
       res = { ...state, token: action.token };
+      saveLocalStorage(res);
+      return res;
+    case "SAVE_USER":
+      res = { ...state, userData: action.payload };
       saveLocalStorage(res);
       return res;
     default:

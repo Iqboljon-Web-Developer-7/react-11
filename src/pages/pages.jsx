@@ -12,12 +12,8 @@ import Admin from "./admin/Admin";
 
 const Pages = () => {
   const [state, dispatch] = useStateValue();
-  const [userData, setUserData] = useState(
-    JSON.parse(localStorage.getItem("userData")) || ""
-  );
   const handleUserData = (userData) => {
-    setUserData(userData);
-    localStorage.setItem("userData", JSON.stringify(userData));
+    dispatch({ type: "SAVE_USER", userData });
   };
 
   return (
@@ -34,8 +30,8 @@ const Pages = () => {
             path="cart"
             element={<Cart state={state} dispatch={dispatch} />}
           />
-          <Route path="/admin" element={<Protect userData={userData} />}>
-            <Route path="" element={<Admin />}></Route>
+          <Route path="/admin" element={<Protect userData={state.userData} />}>
+            <Route path="" element={<Admin data={state.userData} />}></Route>
           </Route>
         </Route>
         <Route
