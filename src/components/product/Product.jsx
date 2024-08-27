@@ -22,7 +22,7 @@ const Product = () => {
   const [state, dispatch] = useStateValue();
 
   useEffect(() => {
-    // window.scroll(0, 0);
+    window.scroll(0, 0);
   }, []);
 
   return (

@@ -19,9 +19,7 @@ const Wishlist = ({ state, dispatch }) => {
           />
         ) : (
           <>
-            <h2 className="text-center text-3xl text-slate-700">
-              Your Wishlist
-            </h2>
+            <h2 className="text-center text-3xl text-red-500">Your Wishlist</h2>
             <Products
               dispatch={dispatch}
               data={state.wishlist}

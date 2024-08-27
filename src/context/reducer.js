@@ -1,7 +1,7 @@
-export const initialState = {
+export const initialState = JSON.parse(localStorage.getItem("mainData")) || {
   wishlist: [],
   cart: [],
-  token: null,
+  token: localStorage.getItem("userTokent") || null,
   carousel: [
     {
       title: `Fresh Vegetables Big discount`,
@@ -108,23 +108,40 @@ export const reducer = (state, action) => {
   switch (action.type) {
     case "TOGGLE_WISHLIST_ITEM":
       if (state.wishlist.findIndex((x) => x.id == action.product.id) < 0) {
-        return { ...state, wishlist: [...state.wishlist, action.product] };
+        res = { ...state, wishlist: [...state.wishlist, action.product] };
+        saveLocalStorage(res);
+        return res;
       }
-      return {
+
+      res = {
         ...state,
         wishlist: state.wishlist.filter(
           (item) => item.id !== action.product.id
         ),
       };
+      saveLocalStorage(res);
+      return res;
     case "TOGGLE_CART_ITEM":
       if (state.cart.findIndex((x) => x.id == action.product.id) < 0) {
-        return { ...state, cart: [...state.cart, action.product] };
+        res = { ...state, cart: [...state.cart, action.product] };
+        saveLocalStorage(res);
+        return res;
       }
-      return {
+      res = {
         ...state,
         cart: state.cart.filter((item) => item.id !== action.product.id),
       };
+      saveLocalStorage(res);
+      return res;
+    case "ADD_TOKEN":
+      res = { ...state, token: action.token };
+      saveLocalStorage(res);
+      return res;
     default:
       break;
   }
 };
+
+function saveLocalStorage(data) {
+  localStorage.setItem("mainData", JSON.stringify(data));
+}

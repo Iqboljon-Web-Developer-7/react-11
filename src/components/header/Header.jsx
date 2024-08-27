@@ -14,7 +14,7 @@ import { RiUser3Line } from "react-icons/ri";
 import logo from "@/assets/logo.svg";
 import Search from "../search/Search";
 
-const Header = ({ wishlist, cart }) => {
+const Header = ({ wishlist, cart, token }) => {
   const [theme, setTheme] = useState("light");
   const [isHeaderFixed, setIsHeaderFixed] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
@@ -69,13 +69,15 @@ const Header = ({ wishlist, cart }) => {
             Your Location
           </option>
         </select>
-        <div className="header__contact flex items-center justify-center gap-2">
+        <div className="header__contact flex items-center justify-center gap-1 sm:gap-2">
           <Link
             to={"/wishList"}
             className="flex items-center justify-center relative"
           >
-            <FaRegHeart className="text-2xl"></FaRegHeart>
-            <sub className="text-slate-400">Wishlist</sub>
+            <FaRegHeart className="text-xl sm:text-2xl"></FaRegHeart>
+            <sub className="text-[.8rem] sm:text-base text-slate-400">
+              Wishlist
+            </sub>
             {wishlist.length > 0 && (
               <span className="absolute min-w-4 text-center bg-red-500 text-white leading-3 p-[.12rem] rounded-full inset-[-.5rem_auto_auto_.66rem] text-[.66rem]">
                 {wishlist.length}
@@ -86,19 +88,24 @@ const Header = ({ wishlist, cart }) => {
             to={"/cart"}
             className="flex items-center justify-center relative"
           >
-            <IoCartOutline className="text-2xl" />
-            <sub className="text-slate-400">Cart</sub>
+            <IoCartOutline className="text-xl sm:text-2xl" />
+            <sub className="text-slate-400 text-[.8rem] sm:text-base">Cart</sub>
             {cart.length > 0 && (
               <span className="absolute min-w-4 text-center bg-green-500 text-white leading-3 p-[.12rem] rounded-full inset-[-.5rem_auto_auto_.7rem] text-[.66rem]">
                 {cart.length}
               </span>
             )}
           </Link>
-          <Link to={"/account"} className="flex items-center justify-center">
-            <RiUser3Line className="text-2xl" />
-            <sub className="text-slate-400">Account</sub>
+          <Link
+            to={`/${token ? "admin" : "account"}`}
+            className="flex items-center justify-center"
+          >
+            <RiUser3Line className="sm:text-2xl" />
+            <sub className="text-[.8rem] sm:text-base text-slate-400">
+              {token ? "Admin" : "Register"}
+            </sub>
           </Link>
-          <div className="modes flex gap-3 text-3xl cursor-pointer">
+          <div className="modes flex gap-3 text-xl sm:text-3xl cursor-pointer">
             <IoIosSunny
               onClick={themeSwitcher}
               className={`${theme == "light" && "hidden"}`}
@@ -109,7 +116,7 @@ const Header = ({ wishlist, cart }) => {
             />
           </div>
           <RiMenu5Line
-            className="lg:hidden text-3xl"
+            className="lg:hidden text-2xl sm:text-3xl"
             onClick={() => setIsOpen((prev) => !prev)}
           />
         </div>

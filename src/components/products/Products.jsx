@@ -5,13 +5,29 @@ import { FaHeart } from "react-icons/fa";
 import { BsCartPlus } from "react-icons/bs";
 import Rating from "../rating/Rating";
 import { Link } from "react-router-dom";
+import "./Products.scss";
+import { Pagination } from "antd";
 
-const Products = ({ data, dispatch, wishlist, cart }) => {
+const Products = ({ data, dispatch, wishlist, cart, total, setSkip }) => {
   const [addBtnClr, setAddBtnClr] = useState("hover:bg-[#bbf2d7] bg-[#DEF9EC]");
+  const [current, setCurrent] = useState(0);
+  const onChange = (page) => {
+    setCurrent(page);
+    setSkip(page);
+  };
+  const itemRender = (_, type, originalElement) => {
+    if (type === "prev") {
+      return <a className="dark:text-slate-200">Previous</a>;
+    }
+    if (type === "next") {
+      return <a className="dark:text-slate-200">Next</a>;
+    }
+    return originalElement;
+  };
 
   let items = data?.map((product, inx) => (
     <div
-      className="border group rounded-xl dark:border-gray-600 dark:hover:border-slate-300 hover:border-black hover:shadow-md duration-300 cursor-pointer p-3"
+      className="border border-green-100 group rounded-xl dark:border-slate-600 dark:hover:border-green-200 hover:border-green-400 hover:shadow-md duration-300 cursor-pointer p-3"
       key={inx}
     >
       <div className="w-full h-60 bg-gray-200">
@@ -112,6 +128,16 @@ const Products = ({ data, dispatch, wishlist, cart }) => {
               <span className="sr-only">Loading...</span>
             </div>
           ))}
+      </div>
+      <div className="flex justify-center">
+        <Pagination
+          defaultPageSize={10} // nechta itemlar ko'rinishi
+          total={total} // jami nechta malumot bor
+          itemRender={itemRender} // ortga oldinga o'tkazish
+          current={current} // hozirgi indicator soni
+          onChange={onChange} // o'zgarganda indikator sonini o'zgartiruvchi
+          hideOnSinglePage // 10tadan kam bo'lganda hidden
+        />
       </div>
     </div>
   );

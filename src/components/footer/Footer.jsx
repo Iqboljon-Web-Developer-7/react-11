@@ -14,8 +14,8 @@ import payment from "@/assets/footer/payment.svg";
 
 const Footer = () => {
   return (
-    <footer className="p-4 text-slate-800 duration-200">
-      <div className="footer__wrapper wrapper grid grid-cols-2 md:grid-cols-3 lg:grid-cols-[4.2fr_3fr_3fr_3fr_3fr_4fr] gap-2 p-1 text-sm text-[#253D4E] font-light">
+    <footer className="p-4 duration-200">
+      <div className="footer__wrapper wrapper grid grid-cols-2 md:grid-cols-3 lg:grid-cols-[4.2fr_3fr_3fr_3fr_3fr_4fr] gap-2 p-1 text-sm text-[#253D4E] dark:text-slate-200 font-light">
         <div className="footer--item">
           <img src={img} className="max-w-[13rem]" alt="website logo" />
           <p className="my-4 w-5/6">Awesome grocery store website template</p>

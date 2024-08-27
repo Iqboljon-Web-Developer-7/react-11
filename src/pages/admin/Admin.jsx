@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 const Admin = ({ data }) => {
+  useEffect(() => {
+    window.scroll(0, 0);
+  }, []);
   return (
     <section className="wrapper flex flex-col items-center pt-12 pb-20">
       <h2 className="text-3xl my-6">Admin panel</h2>

@@ -9,7 +9,7 @@ const imgs = [bgImage, bgImage1, bgImage2];
 
 const Hero = ({ state }) => {
   return (
-    <section className="hero__carousel flex mt-10 overflow-x-auto">
+    <section className="hero__carousel flex mt-4 sm:mt-8 md:mt-10 overflow-x-auto">
       {state?.carousel.map((item, idx) => (
         <CarouselItem
           key={idx}

@@ -1,13 +1,16 @@
 import NotFound from "@/components/notFound/NotFound";
 import Products from "@/components/products/Products";
-import React from "react";
+import React, { useEffect } from "react";
 
 const Cart = ({ state, dispatch }) => {
+  useEffect(() => {
+    window.scroll(0, 0);
+  }, []);
   return (
     <section className="wrapper my-8">
       {state.cart.length > 0 ? (
         <>
-          <h1 className="text-3xl text-center">Your Cart</h1>
+          <h1 className="text-3xl text-center text-green-500">Your Cart</h1>
           <Products
             data={state.cart}
             wishlist={state.wishlist}

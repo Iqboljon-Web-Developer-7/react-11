@@ -18,14 +18,16 @@ const FeaturedCategories = () => {
   const [state, dispatch] = useStateValue();
 
   return (
-    <section className="my-12 md:my-16 featured-categories">
-      <div className="featured-categories__info flex flex-col md:flex-row items-center md:items-end gap-5">
-        <h2 className="text-2xl font-Quicksand font-semibold text-[#253D4E]">
+    <section className="my-8 sm:my-10 md:my-16 featured-categories">
+      <div className="featured-categories__info flex flex-col md:flex-row items-center md:items-end gap-2 md:gap-5">
+        <h2 className="text-2xl font-Quicksand font-semibold text-[#253D4E] dark:text-slate-100">
           Featured Categories
         </h2>
-        <div className="categories flex gap-5 text-sm">
+        <div className="categories flex gap-3 sm:gap-5 flex-wrap justify-center text-sm ">
           {state?.featuredCategories.map((item, idx) => (
-            <p key={idx}>{item}</p>
+            <p key={idx} className="dark:text-slate-200">
+              {item}
+            </p>
           ))}
         </div>
       </div>

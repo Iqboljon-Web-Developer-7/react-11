@@ -12,18 +12,20 @@ import Admin from "./admin/Admin";
 
 const Pages = () => {
   const [state, dispatch] = useStateValue();
-  const [userData, setUserData] = useState();
+  const [userData, setUserData] = useState(
+    JSON.parse(localStorage.getItem("userData")) || ""
+  );
+  const handleUserData = (userData) => {
+    setUserData(userData);
+    localStorage.setItem("userData", JSON.stringify(userData));
+  };
 
   return (
-    <>
+    <div className="dark:bg-slate-950 duration-200">
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route path="" element={<Home />} />
           <Route path="product/:id" element={<Product />} />
-          <Route
-            path="account"
-            element={<Account setUserData={setUserData} />}
-          />
           <Route
             path="wishlist"
             element={<Wishlist state={state} dispatch={dispatch} />}
@@ -36,8 +38,12 @@ const Pages = () => {
             <Route path="" element={<Admin />}></Route>
           </Route>
         </Route>
+        <Route
+          path="/account"
+          element={<Account setUserData={handleUserData} dispatch={dispatch} />}
+        />
       </Routes>
-    </>
+    </div>
   );
 };
 
