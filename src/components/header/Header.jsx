@@ -21,7 +21,7 @@ const Header = ({ wishlist, cart, token }) => {
 
   useEffect(() => {
     setTheme(JSON.parse(localStorage.getItem("theme")) || "light");
-    return () => window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll);
   }, []);
 
   useEffect(() => {
