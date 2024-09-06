@@ -10,8 +10,6 @@ import { BiShuffle } from "react-icons/bi";
 import img from "@/assets/product/home.svg";
 import cartImg from "@/assets/product/cart.svg";
 import Rating from "../rating/Rating";
-import Hero from "../hero/Hero";
-import { useStateValue } from "@/context";
 
 const Product = () => {
   const { id } = useParams();
@@ -227,9 +225,6 @@ const Product = () => {
           <p>Refrigeration not necessary.</p>
           <p>Stir before serving</p>
         </div>
-      </div>
-      <div className="wrapper my-7">
-        <Hero state={state} />
       </div>
     </>
   );

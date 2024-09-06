@@ -93,7 +93,7 @@ const Account = ({ dispatch }) => {
               },
             ]}
           >
-            <Input defaultValue={"emilys"} />
+            <Input placeholder="emilys" />
           </Form.Item>
 
           <Form.Item
@@ -106,7 +106,7 @@ const Account = ({ dispatch }) => {
               },
             ]}
           >
-            <Input.Password defaultValue={"emilyspass"} />
+            <Input.Password placeholder="emilyspass" />
           </Form.Item>
 
           <Form.Item>
