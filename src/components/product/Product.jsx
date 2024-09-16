@@ -35,7 +35,7 @@ const Product = () => {
             </Link>{" "}
             <span className="text-slate-300">/</span>
             <Link className="text-[#3BB77E]" to={"/"}>
-              Products
+              All Products
             </Link>
             <span className="text-slate-300">/</span>
             <p className="text-[#7E7E7E]">{product?.title}</p>
