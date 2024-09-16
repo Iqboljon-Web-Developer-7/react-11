@@ -10,6 +10,7 @@ import { BiShuffle } from "react-icons/bi";
 import img from "@/assets/product/home.svg";
 import cartImg from "@/assets/product/cart.svg";
 import Rating from "../rating/Rating";
+import { useStateValue } from "@/context";
 
 const Product = () => {
   const { id } = useParams();
