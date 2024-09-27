@@ -41,9 +41,10 @@ const Account = ({ dispatch }) => {
         console.log(res);
 
         dispatch({ type: "SAVE_USER", payload: { ...values, img: res.image } });
+
         setTimeout(() => {
-          localStorage.setItem("userTokent", JSON.stringify(res.token));
-          dispatch({ type: "ADD_TOKEN", token: res.token });
+          localStorage.setItem("userTokent", JSON.stringify(res.accessToken));
+          dispatch({ type: "ADD_TOKEN", token: res.accessToken });
           navigateHandler("/");
         }, 500);
       });
