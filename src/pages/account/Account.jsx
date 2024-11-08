@@ -58,7 +58,7 @@ const Account = ({ dispatch }) => {
   };
 
   return (
-    <section className="wrapper mt-16 border-slate-100">
+    <section className="wrapper pt-16 h-screen border-slate-100">
       <div className="product__info flex items-center text-sm my-4 gap-4">
         <Link to={"/"} className="flex items-center justify-center gap-2">
           <img src={img} className="max-w-4" alt="img of home" />
@@ -85,7 +85,7 @@ const Account = ({ dispatch }) => {
           autoComplete="off"
         >
           <Form.Item
-            label="Username"
+            label={<span className="dark:text-slate-200">Username</span>}
             name="username"
             rules={[
               {
@@ -98,7 +98,7 @@ const Account = ({ dispatch }) => {
           </Form.Item>
 
           <Form.Item
-            label="Password"
+            label={<span className="dark:text-slate-200">Password</span>}
             name="password"
             rules={[
               {

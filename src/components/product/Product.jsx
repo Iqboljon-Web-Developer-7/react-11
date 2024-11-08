@@ -2,7 +2,7 @@ import { useFetch } from "@/hooks/useFetch";
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 
-import { FaAngleUp } from "react-icons/fa6";
+import { FaAngleUp, FaHeart } from "react-icons/fa6";
 import { FaAngleDown } from "react-icons/fa6";
 import { CiHeart } from "react-icons/ci";
 import { BiShuffle } from "react-icons/bi";
@@ -11,8 +11,11 @@ import img from "@/assets/product/home.svg";
 import cartImg from "@/assets/product/cart.svg";
 import Rating from "../rating/Rating";
 import { useStateValue } from "@/context";
+import { BsCartPlus } from "react-icons/bs";
+import { TbHeartPlus } from "react-icons/tb";
 
 const Product = () => {
+  const [addBtnClr, setAddBtnClr] = useState("hover:bg-[#bbf2d7] bg-[#DEF9EC]");
   const { id } = useParams();
   const { data: product } = useFetch(`/products/${id}`, {}, [id]);
   const [idx, setIdx] = useState(0);
@@ -27,7 +30,7 @@ const Product = () => {
   return (
     <>
       {product ? (
-        <section className="product wrapper mt-8 mb-20">
+        <section className="product wrapper mt-8 mb-10">
           <div className="product__info flex items-center text-sm my-4 gap-4">
             <Link to={"/"} className="flex items-center justify-center gap-2">
               <img src={img} className="max-w-4" alt="img of home" />
@@ -60,7 +63,9 @@ const Product = () => {
               </div>
             </div>
             <div className="product__main-info text-center lg:text-start lg:w-2/4">
-              <h2 className="mt-4 text-4xl text-[#253D4E]">{product?.title}</h2>
+              <h2 className="mt-4 text-4xl text-[#253D4E] dark:text-slate-300">
+                {product?.title}
+              </h2>
               <div className="rating flex items-center justify-center lg:justify-start  mt-2 gap-2">
                 <Rating rating={product?.rating} />
                 <span className="text-[#B6B6B6] text-sm">
@@ -91,7 +96,9 @@ const Product = () => {
               </p>
               <div className="product__navigation flex gap-3 justify-center lg:justify-start">
                 <div className="counter flex items-center border pl-4 pr-2 border-[#3BB77E]">
-                  <p className="min-w-6 h-5 leading-5">{counter}</p>
+                  <p className="min-w-6 h-5 leading-5 dark:text-slate-200">
+                    {counter}
+                  </p>
                   <div className="btns flex items-center justify-center flex-col">
                     <button
                       onClick={() => setCounter((prev) => prev + 1)}
@@ -108,14 +115,33 @@ const Product = () => {
                     </button>
                   </div>
                 </div>
-                <button className="py-2 px-4 rounded-md font-semibold text-white bg-[#3BB77E] flex items-center justify-center gap-2 text-sm">
-                  <img src={cartImg} alt="cart icon" className="w-4" />
-                  Add to cart
+                <button
+                  onClick={() =>
+                    dispatch({ type: "TOGGLE_CART_ITEM", product })
+                  }
+                  className={`p-2 ${addBtnClr} text-sm flex items-center justify-center rounded-lg text-[#3BB77E] text-[1rem]  duration-200`}
+                >
+                  <BsCartPlus />
+                  &nbsp;
+                  {state.cart.some((x) => x.id == product.id) ? (
+                    <span className="text-red-500">Remove</span>
+                  ) : (
+                    <span>Add</span>
+                  )}
                 </button>
-                <button className="py-1 px-3 text-xl border border-gray-200 rounded-md">
-                  <CiHeart />
+                <button
+                  onClick={() =>
+                    dispatch({ type: "TOGGLE_WISHLIST_ITEM", product })
+                  }
+                  className="p-2 rounded-full w-10 flex-shrink-0 flex-center hover:bg-red-200 text-[1rem] bg-red-100 duration-200"
+                >
+                  {state.wishlist.some((x) => x.id == product.id) ? (
+                    <FaHeart className="text-red-500" />
+                  ) : (
+                    <TbHeartPlus />
+                  )}
                 </button>
-                <button className="py-1 px-3 text-xl border border-gray-200 rounded-md">
+                <button className="py-1 px-3 text-xl border border-gray-200 rounded-md dark:text-slate-200">
                   <BiShuffle />
                 </button>
               </div>
@@ -178,7 +204,7 @@ const Product = () => {
           </div>
         </div>
       )}
-      <div className="product__info wrapper">
+      <div className="product__info wrapper pb-16">
         <div className="btns text-sm flex flex-wrap gap-2 font-Quicksand font-semibold">
           <button className="py-2 px-5 text-[#7E7E7E] hover:text-green-400 duration-200 border shadow-sm rounded-full">
             Description
@@ -193,38 +219,33 @@ const Product = () => {
             Reviews ({product?.reviews.length})
           </button>
         </div>
-        <p className="description my-5 text-[1rem] text-slate-700">
+        <p className="description my-5 text-[1rem] text-slate-700 dark:text-slate-400">
           {product?.description}
         </p>
-        <div className="details text-start grid grid-cols-2 w-fit gap-x-3 sm:gap-x-7 gap-y-2 mt-6 text-sm">
-          <p className="text-slate-900">
+        <div className="details text-start grid grid-cols-2 w-fit gap-x-3 sm:gap-x-7 gap-y-2 mt-6 text-sm dark:text-slate-200">
+          <p>
             <span className="text-[#7E7E7E]">Type:</span> {product?.category}
           </p>
-          <p className="text-slate-900">
+          <p>
             <span className="text-[#7E7E7E]">SKU:</span> {product?.sku}
           </p>
-          <p className="text-slate-900">
+          <p>
             <span className="text-[#7E7E7E]">MFG:</span>{" "}
             {product?.meta["createdAt"]}
           </p>
-          <p className="text-slate-900 flex gap-1">
+          <p className="flex gap-1">
             <span className="text-[#7E7E7E]">Tags:</span>{" "}
             {product?.tags.map((item, idx) => (
               <span key={idx}>{item}</span>
             ))}
           </p>
-          <p className="text-slate-900">
+          <p>
             <span className="text-[#7E7E7E]">Life:</span> 1 month
           </p>
-          <p className="text-slate-900">
+          <p>
             <span className="text-[#7E7E7E]">Stock:</span> {product?.stock}{" "}
             items in Stock
           </p>
-        </div>
-        <div className="additional-info my-4">
-          <h3 className="text-2xl">Suggested Use</h3>
-          <p>Refrigeration not necessary.</p>
-          <p>Stir before serving</p>
         </div>
       </div>
     </>

@@ -1,17 +1,38 @@
+import { useStateValue } from "@/context";
+import { Button } from "antd";
 import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Admin = ({ data }) => {
   useEffect(() => {
     window.scroll(0, 0);
   }, []);
+
+  const navigate = useNavigate();
+
+  const [state, dispatch] = useStateValue();
+
+  const handleLogout = () => {
+    localStorage.clear();
+    dispatch({ type: "REMOVE_TOKEN" });
+    navigate("/account");
+  };
+
   return (
     <section className="wrapper pt-12 pb-20">
-      <h2 className="text-3xl my-5 text-center dark:text-slate-200">
+      <h2 className="text-2xl my-5 text-center dark:text-slate-200 relative">
         Admin panel
+        <Button
+          onClick={handleLogout}
+          type="primary"
+          className="absolute right-0 bg-red-500"
+        >
+          LogOut
+        </Button>
       </h2>
-      <div className="mt-10 flex flex-col justify-center items-center min-h-[20rem]">
+      <div className="mt-8 flex flex-col justify-center items-center min-h-[20rem]">
         <img
-          className="inline-flex object-cover border-4 border-indigo-600 rounded-full shadow-[5px_5px_0_0_rgba(0,0,0,1)] shadow-indigo-600/100 bg-indigo-50 text-indigo-600 h-24 w-24 !h-48 !w-48"
+          className="inline-flex object-cover border-4 border-green-600 rounded-full shadow-[5px_5px_0_0_rgba(0,0,0,1)] shadow-green-500/100 bg-indigo-50 text-green-600 h-24 w-24"
           src={data.img}
           alt=""
         />
@@ -23,7 +44,7 @@ const Admin = ({ data }) => {
           <a
             href=""
             target="_blank"
-            className="text-indigo-900 hover:text-indigo-600 font-bold border-b-0 hover:border-b-4 hover:border-b-indigo-300 transition-all mb-2"
+            className="text-green-900 hover:text-green-600 font-bold border-b-0 hover:border-b-4 hover:border-b-green-300 transition-all mb-2"
           >
             XYZ
           </a>
@@ -32,7 +53,7 @@ const Admin = ({ data }) => {
           <li className="mx-2">
             <a href="" target="_blank" aria-label="GitHub">
               <svg
-                className="h-6 text-indigo-700 hover:text-indigo-300"
+                className="h-6 text-green-700 hover:text-indigo-300"
                 fill="currentColor"
                 role="img"
                 viewBox="0 0 24 24"
@@ -47,7 +68,7 @@ const Admin = ({ data }) => {
           <li className="mx-2">
             <a href="" target="_blank" aria-label="LinkedIn">
               <svg
-                className="h-6 text-indigo-700 hover:text-indigo-300"
+                className="h-6 text-green-700 hover:text-indigo-300"
                 fill="currentColor"
                 role="img"
                 viewBox="0 0 24 24"
@@ -62,7 +83,7 @@ const Admin = ({ data }) => {
           <li className="mx-2">
             <a href="" target="_blank" aria-label="Twitter">
               <svg
-                className="h-6 text-indigo-700 hover:text-indigo-300"
+                className="h-6 text-green-700 hover:text-indigo-300"
                 fill="currentColor"
                 role="img"
                 viewBox="0 0 24 24"
@@ -77,7 +98,7 @@ const Admin = ({ data }) => {
           <li className="mx-2">
             <a href="" target="_blank" aria-label="Unsplash">
               <svg
-                className="h-6 text-indigo-700 hover:text-indigo-300"
+                className="h-6 text-green-700 hover:text-indigo-300"
                 fill="currentColor"
                 role="img"
                 viewBox="0 0 24 24"
@@ -92,7 +113,7 @@ const Admin = ({ data }) => {
           <li className="mx-2">
             <a href="" target="_blank" aria-label="Email">
               <svg
-                className="h-6 text-indigo-700 hover:text-indigo-300"
+                className="h-6 text-green-700 hover:text-indigo-300"
                 fill="currentColor"
                 role="img"
                 viewBox="0 0 24 24"

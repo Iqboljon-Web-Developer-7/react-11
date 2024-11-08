@@ -138,6 +138,11 @@ export const reducer = (state, action) => {
       res = { ...state, token: action.token };
       saveLocalStorage(res);
       return res;
+    case "REMOVE_TOKEN":
+      res = { ...state, token: "" };
+      state.token = "";
+      saveLocalStorage(res);
+      return res;
     case "SAVE_USER":
       res = { ...state, userData: action.payload };
       saveLocalStorage(res);
